@@ -25,7 +25,7 @@ from scipy.misc import imsave
 
 from keras.utils import np_utils
 
-import augment
+from .augment import perturb
 
 AUGMENTATION_PARAMS = {
     'zoom_range': (0.75, 1.25),
@@ -67,7 +67,7 @@ def augment_test_image(image, nb_rows, nb_cols, nb_patches):
                                  max_patches=nb_patches)
 
     for patch in patches:
-        patch = augment.perturb(patch, NO_AUGMENTATION_PARAMS, target_shape=(nb_rows, nb_cols))
+        patch = perturb(patch, NO_AUGMENTATION_PARAMS, target_shape=(nb_rows, nb_cols))
         patch = patch.reshape((1, patch.shape[0], patch.shape[1]))
         X.append(patch)
 
@@ -76,21 +76,20 @@ def augment_test_image(image, nb_rows, nb_cols, nb_patches):
 
 def augment_train_images(images, categories, nb_rows, nb_cols, nb_patches):
     print('augmenting train!')
-    X, Y = [], []
+    total = nb_patches * len(images)
+    X = np.ndarray(shape=(total, 1, nb_rows, nb_cols), dtype='float32')
+    Y = np.ndarray(shape=(total, categories.shape[1]), dtype='int8')
     for idx, (image, category) in enumerate(zip(images, categories)):
         if idx % 500 == 0:
             print('   >', idx)
         patches = extract_patches_2d(image=image,
                                      patch_size=(nb_rows * 2, nb_cols * 2),
                                      max_patches=nb_patches)
-        for patch in patches:
-            patch = augment.perturb(patch, AUGMENTATION_PARAMS, target_shape=(nb_rows, nb_cols))
+        for patch_idx, patch in enumerate(patches):
+            patch = perturb(patch, AUGMENTATION_PARAMS, target_shape=(nb_rows, nb_cols))
             patch = patch.reshape((1, patch.shape[0], patch.shape[1]))
-            X.append(patch)
-            Y.append(category)
-
-    X = np.array(X, dtype='float32')
-    Y = np.array(Y, dtype='int8')
+            X[idx + patch_idx] = patch
+            Y[idx + patch_idx] = category
 
     return X, Y
 

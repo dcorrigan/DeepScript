@@ -103,11 +103,11 @@ def train():
                                                       nb_cols=NB_COLS,
                                                       nb_patches=NB_TRAIN_PATCHES)
 
-        for idx, p in enumerate(tmp_train_X):
-            p = p.reshape((p.shape[1], p.shape[2]))
-            imsave(str(idx)+'.png', p)
-            if idx >= 30:
-                break
+        # for idx, p in enumerate(tmp_train_X):
+        #     p = p.reshape((p.shape[1], p.shape[2]))
+        #     imsave(str(idx)+'.png', p)
+        #     if idx >= 30:
+        #         break
 
         model.fit(tmp_train_X, tmp_train_Y,
                       batch_size=BATCH_SIZE,
