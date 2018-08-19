@@ -22,15 +22,15 @@ def VGG16(nb_classes, nb_rows, nb_cols):
     model.add(Convolution2D(64, 3, 3, activation='relu', name='conv2_1'))
     model.add(ZeroPadding2D((1, 1)))
     model.add(Convolution2D(64, 3, 3, activation='relu', name='conv2_2'))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
-    
+    model.add(MaxPooling2D((2, 2), strides=(2, 2), dim_ordering="th"))
+
     model.add(ZeroPadding2D((1, 1)))
     model.add(Convolution2D(128, 3, 3, activation='relu', name='conv3_1'))
     model.add(ZeroPadding2D((1, 1)))
     model.add(Convolution2D(128, 3, 3, activation='relu', name='conv3_2'))
     model.add(ZeroPadding2D((1, 1)))
     model.add(Convolution2D(128, 3, 3, activation='relu', name='conv3_3'))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2), dim_ordering="th"))
 
     model.add(ZeroPadding2D((1, 1)))
     model.add(Convolution2D(256, 3, 3, activation='relu', name='conv4_1'))
@@ -38,7 +38,7 @@ def VGG16(nb_classes, nb_rows, nb_cols):
     model.add(Convolution2D(256, 3, 3, activation='relu', name='conv4_2'))
     model.add(ZeroPadding2D((1, 1)))
     model.add(Convolution2D(256, 3, 3, activation='relu', name='conv4_3'))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2), dim_ordering="th"))
 
     model.add(Flatten())
     model.add(Dense(1024, activation='relu', name='fc1'))

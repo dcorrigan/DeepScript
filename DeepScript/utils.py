@@ -65,12 +65,12 @@ def augment_test_image(image, nb_rows, nb_cols, nb_patches):
     patches = extract_patches_2d(image=image,
                                  patch_size=(nb_rows, nb_cols),
                                  max_patches=nb_patches)
-    
+
     for patch in patches:
         patch = augment.perturb(patch, NO_AUGMENTATION_PARAMS, target_shape=(nb_rows, nb_cols))
         patch = patch.reshape((1, patch.shape[0], patch.shape[1]))
         X.append(patch)
-    
+
     return np.array(X, dtype='float32')
 
 

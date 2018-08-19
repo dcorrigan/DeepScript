@@ -57,7 +57,7 @@ def train():
     train_y_int = label_encoder.transform(train_categories)
     dev_y_int = label_encoder.transform(dev_categories)
     train_Y = np_utils.to_categorical(train_y_int,
-                                      nb_classes=len(label_encoder.classes_))
+                                      num_classes=len(label_encoder.classes_))
 
     print('-> Working on', len(label_encoder.classes_), 'classes:', label_encoder.classes_)
 
@@ -77,7 +77,7 @@ def train():
 
     model.summary()
     print(model.summary())
-    
+
     with open('models/' + MODEL_NAME + '/architecture.json', 'w') as F:
         F.write(model.to_json())
 

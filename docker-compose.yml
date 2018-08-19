@@ -1,0 +1,8 @@
+version: '3'
+services:
+  deepscript:
+    build: ./
+    volumes:
+      - './:/app'
+      - './../clamm/CLaMM_Training_Data_Set:/app/data/CLaMM_train'
+      - './../clamm/CLaMM_task1:/app/data/CLaMM_test'

@@ -18,7 +18,7 @@ np.random.seed(SEED)
 random.seed(SEED)
 
 from sklearn.cross_validation import train_test_split
-    
+
 
 def train_dev_split(input_dir = 'data/CLaMM_train',
                     metafile = 'meta.csv',
@@ -83,7 +83,7 @@ def prepare_test_data(input_dir = 'data/CLaMM_test',
                       metafile = 'meta.csv',
                       target_classes = None,
                       output_path = None):
-    
+
     print('Preprocessing test data available under:', input_dir)
     if target_classes:
         print('\t-> restricting to classes:', target_classes)
@@ -124,7 +124,7 @@ def prepare_test_data(input_dir = 'data/CLaMM_test',
 
 
 if __name__ == '__main__':
-    
+
     # which classes?
     target_classes = None # e.g. ['caroline', 'textualis']
 
@@ -139,14 +139,14 @@ if __name__ == '__main__':
     os.mkdir(output_path)
 
     # create train-dev split:
-    train_dev_split(input_dir='data/CLaMM_train',
+    train_dev_split(input_dir='/app/data/CLaMM_train',
                     test_size = .1,
                     random_state = SEED,
                     output_path = output_path,
                     target_classes = target_classes)
 
     # preprocess test data:
-    prepare_test_data(input_dir='data/CLaMM_test',
+    prepare_test_data(input_dir='/app/data/CLaMM_test',
                       output_path = output_path,
                       target_classes = target_classes)
 
