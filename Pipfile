@@ -13,7 +13,7 @@ keras = "*"
 seaborn = "*"
 ghalton = "*"
 ipdb = "*"
-theano = "*"
+tensorflow = "*"
 
 [dev-packages]
 

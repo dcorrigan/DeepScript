@@ -96,6 +96,7 @@ def train():
 
 
     for e in range(NB_EPOCHS):
+        print("CYCLE {} of {}".format(e + 1, NB_EPOCHS))
 
         tmp_train_X, tmp_train_Y = utils.augment_train_images(images=train_images,
                                                       categories=train_Y,
@@ -103,11 +104,12 @@ def train():
                                                       nb_cols=NB_COLS,
                                                       nb_patches=NB_TRAIN_PATCHES)
 
-        # for idx, p in enumerate(tmp_train_X):
-        #     p = p.reshape((p.shape[1], p.shape[2]))
-        #     imsave(str(idx)+'.png', p)
-        #     if idx >= 30:
-        #         break
+        for idx, p in enumerate(tmp_train_X):
+            p = p.reshape((p.shape[1], p.shape[2]))
+            imsave(str(idx)+'.png', p)
+            if idx >= 30:
+                break
+
 
         model.fit(tmp_train_X, tmp_train_Y,
                       batch_size=BATCH_SIZE,
@@ -133,9 +135,9 @@ def train():
 
         # half learning rate:
         if e and e % 10 == 0:
-            old_lr  = model.optimizer.lr.get_value()
+            old_lr  = keras.backend.get_value(model.optimizer.lr)
             new_lr = np.float32(old_lr * 0.5)
-            model.optimizer.lr.set_value(new_lr)
+            keras.backend.set_value(model.optimizer.lr, new_lr)
             print('\t- Lowering learning rate > was:', old_lr, ', now:', new_lr)
 
 

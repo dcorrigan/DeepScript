@@ -48,7 +48,7 @@ def test():
     print('-> Working on classes:', label_encoder.classes_)
 
     test_int_labels = label_encoder.transform(test_categories)
-    
+
     model = model_from_json(open('models/' + MODEL_NAME + '/architecture.json').read())
 
     model.load_weights('models/' + MODEL_NAME + '/weights.hdf5')
@@ -73,9 +73,9 @@ def test():
     cm = confusion_matrix(T, P, labels=label_encoder.classes_)
     cm_normalized = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
     np.set_printoptions(precision=2)
-    sns.plt.figure()
+    plt.figure()
     utils.plot_confusion_matrix(cm_normalized, target_names=label_encoder.classes_)
-    sns.plt.savefig('models/' + MODEL_NAME + '/test_conf_matrix.pdf')
+    plt.savefig('models/' + MODEL_NAME + '/test_conf_matrix.pdf')
 
 if __name__ == '__main__':
     test()
