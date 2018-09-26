@@ -52,7 +52,7 @@ CATEGORIES = [
 ]
 
 
-def train(parent_dir, output_dir):
+def train(parent_dir, output_dir, epochs=20):
     # need to sort some into the validation dir
     csv_file = glob.glob(os.path.join(parent_dir, "*.csv"))[0]
     for line in open(csv_file):
@@ -87,16 +87,12 @@ def train(parent_dir, output_dir):
     print(model.summary())
     model.compile(loss="mean_squared_error", optimizer=keras.optimizers.sgd(lr=0.3), metrics=["accuracy"])
 
-    with open("models/" + MODEL_NAME + "/architecture.json", "w") as F:
-        F.write(model.to_json())
-
     model.fit_generator(
         train_generator,
-        # verbose=2,
-        # use_multiprocessing=True,
-        # workers=3,
-        epochs=10,
+        epochs=epochs
     )
+
+    model.save("model_output.keras")
 
 
 if __name__ == "__main__":
