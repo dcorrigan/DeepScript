@@ -85,12 +85,13 @@ def train(parent_dir, output_dir, epochs=20):
     )
 
     print(model.summary())
-    model.compile(loss="mean_squared_error", optimizer=keras.optimizers.sgd(lr=0.3), metrics=["accuracy"])
-
-    model.fit_generator(
-        train_generator,
-        epochs=epochs
+    model.compile(
+        loss=keras.losses.categorical_crossentropy,
+        optimizer=keras.optimizers.Adadelta(),
+        metrics=["accuracy"],
     )
+
+    model.fit_generator(train_generator, epochs=epochs)
 
     model.save("model_output.keras")
 
